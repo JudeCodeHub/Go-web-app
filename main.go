@@ -26,12 +26,18 @@ func contactPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// Handle the root path (loading http://localhost:8080/)
+	http.HandleFunc("/", homePage)
 
-	http.HandleFunc("/home", homePage)
-	http.HandleFunc("/courses", coursePage)
-	http.HandleFunc("/about", aboutPage)
-	http.HandleFunc("/contact", contactPage)
+	// Handle specific page requests matching the HTML href links
+	http.HandleFunc("/home.html", homePage)
+	http.HandleFunc("/courses.html", coursePage)
+	http.HandleFunc("/about.html", aboutPage)
+	http.HandleFunc("/contact.html", contactPage)
 
+	log.Println("Server starting on port 8080...")
+	
+	// Listen on port 8080
 	err := http.ListenAndServe("0.0.0.0:8080", nil)
 	if err != nil {
 		log.Fatal(err)
